@@ -1,14 +1,46 @@
+import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+
 import styles from '../styles/home.module.css';
-export const Home = ({ posts }) => {
+import Comment from '../components/Comment';
+import { getPosts } from '../api/index';
+import { Loader } from '../components';
+
+export const Home = () => {
+
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true); //initially we set laoding to true
+  
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await getPosts();
+
+      // console.log('response', response);
+
+      if (response.success) {
+        setPosts(response.data.posts);
+      }
+
+      setLoading(false); // as soon as the response is fetched we set it to false
+    };
+
+    fetchPosts();
+  }, []);
+
+  if(loading){
+    return <Loader />;
+  }
+
+  console.log(posts);
   return (
     <div className={styles.postsList}>
       {posts.map((post) => {
-        return(
-          <div className={styles.postWrapper}>
+        return (
+          <div className={styles.postWrapper} key={`post-${post._id}`}>
             <div className={styles.postHeader}>
               <div className={styles.postAvatar}>
                 <img
-                  src="https://cdn-icons.flaticon.com/png/512/1144/premium/1144709.png?token=exp=1644001945~hmac=d940a73e4a060ba030a30a47dc02eb1e"
+                  src="https://cdn2.iconfinder.com/data/icons/essenstial-ultimate-ui/64/avatar-512.png"
                   alt="user-pic"
                 />
                 <div>
@@ -21,7 +53,7 @@ export const Home = ({ posts }) => {
               <div className={styles.postActions}>
                 <div className={styles.postLike}>
                   <img
-                    src="https://cdn-icons.flaticon.com/png/512/2961/premium/2961957.png?token=exp=1644002057~hmac=8efac28d9a039394b6a4e384ca5e7d3e"
+                    src="https://e7.pngegg.com/pngimages/615/837/png-clipart-heart-symbol-love-symbol-love-text.png"
                     alt="likes-icon"
                   />
                   <span>5</span>
@@ -29,7 +61,7 @@ export const Home = ({ posts }) => {
 
                 <div className={styles.postCommentsIcon}>
                   <img
-                    src="https://cdn-icons.flaticon.com/png/512/3318/premium/3318523.png?token=exp=1644002092~hmac=f5d93db6f8efb12fc6f9ad709c2c4fdc"
+                    src="https://www.seekpng.com/png/detail/504-5047114_chat-icon-comments-icon.png"
                     alt="comments-icon"
                   />
                   <span>2</span>
@@ -40,17 +72,11 @@ export const Home = ({ posts }) => {
               </div>
 
               <div className={styles.postCommentsList}>
-                <div className={styles.postCommentsItem}>
-                  <div className={styles.postCommentHeader}>
-                    <span className={styles.postCommentAuthor}>Bill</span>
-                    <span className={styles.postCommentTime}>a minute ago</span>
-                    <span className={styles.postCommentLikes}>22</span>
-                  </div>
-
-                  <div className={styles.postCommentContent}>
-                    Random comment
-                  </div>
-                </div>
+                {post.comments.map((comment) => {
+                  return (
+                    <Comment key={`comment-${comment._id}`} comment={comment} />
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -59,3 +85,8 @@ export const Home = ({ posts }) => {
     </div>
   );
 };
+
+//will work only in development mode
+// Home.propTypes = {
+//   posts: PropTypes.array.isRequired,
+// };

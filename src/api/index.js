@@ -1,4 +1,4 @@
-import { API_URLS, LOCALSTORAGE_TOKEN_KEY} from '../utils';
+import { API_URLS, getFormBody, LOCALSTORAGE_TOKEN_KEY} from '../utils';
 
 const customFetch = async (url, { body, ...customConfig}) => { 
 
@@ -6,8 +6,7 @@ const customFetch = async (url, { body, ...customConfig}) => {
 
     //we will be sending JSON and receiving JSON
     const headers = {
-        'content-type': 'application/json',
-        Accept: 'application/json'
+        'content-type': 'application/x-www-form-url-encoded',
     };
 
     //for the protected APIs
@@ -25,13 +24,15 @@ const customFetch = async (url, { body, ...customConfig}) => {
 
     //if body exists in the second arg in top
     if(body){
-        config.body = JSON.stringify(body); //convert to json string and pass it to our config which is going in the fetch call below.
+        config.body = getFormBody(body);
+        // config.body = JSON.stringify(body); //convert to json string and pass it to our config which is going in the fetch call below.
     }
 
     try{
         const response = await fetch(url, config);
         const data = await response.json();
 
+        // console.log("data inside API: ", data);
         //for all api calls, this is common
         if(data.success){
             return {
@@ -42,9 +43,10 @@ const customFetch = async (url, { body, ...customConfig}) => {
 
         throw new Error(data.message);
     }catch(err){
-        console.log('error');
+        // console.log('error: ', err);
+        // console.log('Error Message: ', err.message)
         return {
-            data: err.message,
+            message: err.message,
             success: false
         }
     }
@@ -57,6 +59,9 @@ export const getPosts = (page = 1, limit = 5) => {
     });
 }
 
-const createPosts = () => {
-    return customFetch();
+export const login = (email, password) => {
+    return customFetch(API_URLS.login(), {
+        method: 'POST',
+        body: {email, password}
+    });
 }
