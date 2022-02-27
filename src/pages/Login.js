@@ -4,13 +4,14 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '../hooks';
+import { Navigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loggingIn, setLoggingIn] = useState(false);
   const auth = useAuth();
-  console.log(auth);
+  // console.log(auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,6 +38,10 @@ const Login = () => {
 
     setLoggingIn(false);
   };
+
+  if(auth.user){
+    return <Navigate to='/' />
+  }
 
   return (
     <form className={styles.loginForm} onSubmit={handleSubmit}>

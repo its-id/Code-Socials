@@ -19,7 +19,7 @@ const Navbar = () => {
         {/* If user has logged in, then only we show this div */}
         {auth.user && (
           <div className={styles.user}>
-            <Link to="/">
+            <Link to="/settings">
               <img
                 src="https://cdn2.iconfinder.com/data/icons/essenstial-ultimate-ui/64/avatar-512.png"
                 alt=""
@@ -42,7 +42,7 @@ const Navbar = () => {
                   <Link to="/login">Log In</Link>
                 </li>
                 <li>
-                  <Link to="/">Register</Link>
+                  <Link to="/register">Register</Link>
                 </li>
               </>
             )}

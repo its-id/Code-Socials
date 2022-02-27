@@ -6,7 +6,7 @@ const customFetch = async (url, { body, ...customConfig}) => {
 
     //we will be sending JSON and receiving JSON
     const headers = {
-        'content-type': 'application/x-www-form-url-encoded',
+        'content-type': 'application/x-www-form-urlencoded',
     };
 
     //for the protected APIs
@@ -63,5 +63,44 @@ export const login = (email, password) => {
     return customFetch(API_URLS.login(), {
         method: 'POST',
         body: {email, password}
+    });
+}
+
+export const register = async (name, email, password, confirmPassword) => {
+  return customFetch(API_URLS.signup(), {
+    method: 'POST',
+    body: { name, email, password, confirm_password: confirmPassword },
+  });
+};
+
+export const editProfile = async (userId, name, password, confirmPassword) => {
+    return customFetch(API_URLS.editUser(), {
+        method: 'POST',
+        body: {id: userId, name, password, confirm_password: confirmPassword}
+    });
+}
+
+
+export const fetchUserProfile = (userId) => {
+    return customFetch(API_URLS.userInfo(userId), {
+        method: 'GET',
+    });
+}
+
+export const fetchUserFriends = () => {
+    return customFetch(API_URLS.friends(), {
+        method: 'GET',
+    });
+}
+
+export const addFriend = (userId) => {
+    return customFetch(API_URLS.createFriendship(userId), {
+        method: 'POST',
+    });
+}
+
+export const removeFriendship = (userId) => {
+    return customFetch(API_URLS.removeFriend(userId), {
+        method: 'POST',
     });
 }

@@ -6,6 +6,9 @@ const initialState = {
     login: () => {},
     logout: () => {},
     loading: true, //will be checking if the user is being processed or not
+    signup: () => {},
+    updateUser: () => {},
+    updateUserFriends: () => {}
 }
 
 export const AuthContext = createContext(initialState); 
