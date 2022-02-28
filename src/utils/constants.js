@@ -5,7 +5,7 @@ export const API_URLS = {
   login: () => `${API_ROOT}/users/login`,
   signup: () => `${API_ROOT}/users/signup`,
   posts: (page, limit) => `${API_ROOT}/posts?page=${page}&limit=${limit}`,
-  createPost: (content) => `${API_ROOT}/posts/create`,
+  createPost: () => `${API_ROOT}/posts/create`,
   createFriendship: (userId) =>
     `${API_ROOT}/friendship/create_friendship?user_id=${userId}`,
   friends: () => `${API_ROOT}/friendship/fetch_user_friends`,

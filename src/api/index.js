@@ -104,3 +104,22 @@ export const removeFriendship = (userId) => {
         method: 'POST',
     });
 }
+
+export const addPost = (content) => {
+    return customFetch(API_URLS.createPost(), {
+        method: 'POST',
+        body: {
+            content, //passing content as the key
+        }
+    });
+}
+
+export const addComment = async (content, postId) => {
+    return customFetch(API_URLS.comment(), {
+        method: 'POST',
+        body: {
+            post_id: postId,
+            content, //passing content as the key
+        }
+    });
+}

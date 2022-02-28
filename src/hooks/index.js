@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../providers/AuthProvider';
-import { editProfile, login as userLogin, register, fetchUserFriends } from '../api';
+import { AuthContext, PostsContext } from '../providers';
+import { editProfile, login as userLogin, register, fetchUserFriends, getPosts } from '../api';
 import { setItemInLocalStorage, LOCALSTORAGE_TOKEN_KEY, removeItemLocalStorage, gettItemFromLocalStorage } from '../utils';
 import jwt from 'jwt-decode';
 
@@ -138,3 +138,57 @@ export const useProvideAuth = () => {
   };
   
 };
+
+export const usePosts = () => {
+  return useContext(PostsContext)
+}
+
+export const useProvidePosts = () => {
+
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true); //initially we set laoding to true
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await getPosts();
+
+      // console.log('response', response);
+
+      if (response.success) {
+        setPosts(response.data.posts);
+      }
+
+      setLoading(false); // as soon as the response is fetched we set it to false
+    };
+
+    fetchPosts();
+    
+  }, []);
+
+  const addPostsToState = (post) => {
+
+    const newPosts = [post, ...posts];
+    setPosts(newPosts);
+
+  };
+
+  const addCommentsToState = (comment, postId) => {
+    const newPosts = posts.map((post) => {
+      if(post._id === postId){
+
+        //spreading the rest part of that post along with our new comment added to the end of our curr post's comments.
+        return { ...post, comments: [...post.comments, comment]};
+      }
+      return post;
+    });
+    setPosts(newPosts);
+  };
+
+  return{
+    data: posts,
+    loading,
+    addPostsToState,
+    addCommentsToState
+  };
+
+}
