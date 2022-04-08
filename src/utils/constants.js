@@ -22,4 +22,4 @@ export const API_URLS = {
   searchUsers: (searchText) => `${API_ROOT}/users/search?text=${searchText}`,
 };
 
-export const LOCALSTORAGE_TOKEN_KEY = '__codeial_token__'; //using this key, we will store the token when user logs in
+export const LOCALSTORAGE_TOKEN_KEY = process.env.LOCALSTORAGE_TOKEN_KEY; //using this key, we will store the token when user logs in
