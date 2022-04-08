@@ -33,7 +33,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Navbar />
+        <Navbar />  
         {/* Earlier, we used to write Router and Switch to stop rendering multiple. */}
         <Routes>
           <Route exact path="/" element={<Home />} />

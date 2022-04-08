@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { addComment } from '../api';
+import { addComment, toggleLike } from '../api';
 import { usePosts } from '../hooks';
 import { Comment } from './';
 
@@ -58,6 +58,29 @@ const Post = ( {post} ) => {
         }
 
     }
+
+    const handlePostLikeClick = async () => {
+        const response = await toggleLike(post._id, 'Post');
+
+        if(response.success){
+
+            //means, we removed the like
+            if(response.data.deleted){
+                toast.success('Removed Like Successfully!', {
+                    theme: 'colored',
+                });
+            }else{ //we added the like
+                toast.success('Liked Post Successfully!', {
+                    theme: 'colored',
+                });
+            }
+           
+        }else{
+            toast.error(`${response.message}`, {
+                theme: 'colored',
+            });
+        }
+    }
         
     return (
         <div className={styles.postWrapper} key={`post-${post._id}`}>
@@ -76,10 +99,13 @@ const Post = ( {post} ) => {
 
             <div className={styles.postActions}>
                 <div className={styles.postLike}>
-                <img
-                    src="https://e7.pngegg.com/pngimages/615/837/png-clipart-heart-symbol-love-symbol-love-text.png"
-                    alt="likes-icon"
-                />
+                <button  onClick={handlePostLikeClick}>
+                    <img
+                        src="https://img.icons8.com/ios-glyphs/120/000000/like--v2.png"
+                        alt="likes-icon"
+                    />
+                </button>
+                
                 <span>{post.likes.length}</span>
                 </div>
 

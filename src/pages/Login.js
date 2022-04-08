@@ -15,7 +15,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     if (!email || !password) {
       return toast.error('Please enter both Email and Password', {
         theme: 'colored',

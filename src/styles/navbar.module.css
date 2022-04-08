@@ -5,6 +5,12 @@
     align-items: center;
     justify-content: space-between;
   }
+  .leftDiv{
+    width: 150px;
+  }
+  .codeialLogo img{
+    width: 100%;
+  }
   .logo {
     color: #fff;
     font-size: 35px;
@@ -80,12 +86,12 @@
     flex-grow: 1;
     border-radius: 0 0 3px 3px;
     position: absolute;
-    width: 100%;
+    width: 99.5%;
     top: 40px;
     border: 1px solid #e0e0e0;
     z-index: 100;
     max-height: 452px;
-    overflow: scroll;
+    overflow: auto;
     /* display: none; */
   }
   .searchResults ul {
@@ -101,6 +107,10 @@
     display: flex;
     align-items: center;
     padding: 9px 14px;
+  }
+  .searchResultsRow a{
+    display: flex;
+    align-items: center;
   }
   .searchResultsRow:hover {
     background-color: #eceffa;
