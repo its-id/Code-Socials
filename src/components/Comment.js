@@ -39,12 +39,21 @@ const Comment = ( { comment }) => {
       <div className={styles.postCommentHeader}>
         <span className={styles.postCommentAuthor}>{comment.user.name}</span>
         <span className={styles.postCommentTime}>{date}</span>
-        <span className={styles.postCommentLikes}>{comment.likes.length} likes</span>
+        <span className={styles.postCommentLikes}>
+          {comment.likes.length} likes
+        </span>
       </div>
 
       <div className={styles.postCommentContent}>{comment.content}</div>
-      <button className={styles.postCommentLike} onClick={handleCommentLikeClick}>
-        <img src="https://img.icons8.com/ios-glyphs/120/000000/like--v2.png" alt="likes-icon" />
+      <button
+        className={styles.postCommentLike}
+        onClick={handleCommentLikeClick}
+      >
+        <img
+          src="https://img.icons8.com/ios-glyphs/120/000000/like--v2.png"
+          alt="likes-icon"
+        />
+        <span>{comment.likes.length}</span>
       </button>
     </div>
   );
