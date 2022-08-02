@@ -15,7 +15,7 @@ function PrivateRoute({ children }){ //children - will contain the components to
 function App() {
   
   const auth = useAuth();
-  console.log(auth);
+  // console.log(auth);
 
   const Page404 = () => {
     return (

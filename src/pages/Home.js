@@ -13,7 +13,7 @@ const Home = () => {
     return <Loader />;
   }
 
-  console.log(posts);
+  // console.log(posts);
   return (
     <div className={styles.home}>
       <div className={styles.postsList}>
