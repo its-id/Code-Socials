@@ -1,4 +1,4 @@
-## Note: Change process.env.LOCALSTORAGE_TOKEN_KEY with your local key which you want to give in order to fetch from API.
+## Note: Change process.env.LOCALSTORAGE_TOKEN_KEY & process.env.API_URL with your local key and server endpoint url which you want to give in order to fetch from API.
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

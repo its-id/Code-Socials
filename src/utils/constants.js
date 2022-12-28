@@ -1,6 +1,5 @@
-const API_ROOT = 'https://codeial.codingninjas.com:8000/api/v2';
+const API_ROOT = process.env.REACT_APP_API_URL;
 
-// doc url - https://www.notion.so/aakashcn/Codeial-API-docs-3a4d0b5a42c54f0a94d951a42aabc13f
 export const API_URLS = {
   login: () => `${API_ROOT}/users/login`,
   signup: () => `${API_ROOT}/users/signup`,
@@ -22,4 +21,5 @@ export const API_URLS = {
   searchUsers: (searchText) => `${API_ROOT}/users/search?text=${searchText}`,
 };
 
-export const LOCALSTORAGE_TOKEN_KEY = process.env.LOCALSTORAGE_TOKEN_KEY; //using this key, we will store the token when user logs in
+export const LOCALSTORAGE_TOKEN_KEY =
+  process.env.REACT_APP_LOCALSTORAGE_TOKEN_KEY; //using this key, we will store the token when user logs in
